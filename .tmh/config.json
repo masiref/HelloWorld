@@ -1,0 +1,9 @@
+{
+  "issueKeyTestcaseValues": {},
+  "testManagerBasePath": "https://masire-orchestrator.westeurope.cloudapp.azure.com:8443/",
+  "defaultProject": {
+    "id": "dfc0442e-0100-0000-9616-0b44a8b35d6e",
+    "name": "Demo project",
+    "key": "DEMO"
+  }
+}
