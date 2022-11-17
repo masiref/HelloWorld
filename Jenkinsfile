@@ -80,10 +80,8 @@ pipeline {
 					testResultsOutputPath: "result.xml",
 					credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: "${UIPATH_UAT_ORCH_CREDENTIALS_ID}"]
 				)
+				step([$class: 'JUnitResultArchiver', testResults: 'result.xml'])
 			}
-			step([$class: 'JUnitResultArchiver', testResults: 'result.xml'])
-			if (currentBuild.result == 'UNSTABLE')
-				currentBuild.result = 'FAILURE'
 		}
 
 		stage('Deploy to Production') {
