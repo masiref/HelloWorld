@@ -80,7 +80,6 @@ pipeline {
 					testResultsOutputPath: "result.xml",
 					credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: "${UIPATH_UAT_ORCH_CREDENTIALS_ID}"]
 				)
-				step([$class: 'JUnitResultArchiver', testResults: 'result.xml'])
 			}
 		}
 
