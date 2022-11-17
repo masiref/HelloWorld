@@ -47,7 +47,7 @@ pipeline {
 		}
 
 		stage('Deploy to UAT') {
-			input{
+			input {
 				message "Do you want to proceed for UAT deployment?"
 			}
 			steps {
@@ -75,16 +75,19 @@ pipeline {
 					orchestratorAddress: "${UIPATH_UAT_ORCH_URL}",
 					orchestratorTenant: "${UIPATH_UAT_ORCH_TENANT_NAME}",
 					folderName: "${UIPATH_UAT_ORCH_FOLDER_NAME}",
-					timeout: 10000,
+					timeout: 30000,
 					traceLevel: 'None',
 					testResultsOutputPath: "result.xml",
 					credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: "${UIPATH_UAT_ORCH_CREDENTIALS_ID}"]
 				)
+				step([$class: 'JUnitResultArchiver', testResults: 'result.xml'])
+				if (currentBuild.result == 'UNSTABLE')
+					currentBuild.result = 'FAILURE'
 			}
 		}
 
 		stage('Deploy to Production') {
-			input{
+			input {
 				message "Do you want to proceed for PROD deployment?"
 			}
 			steps {
